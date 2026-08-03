@@ -2,7 +2,7 @@
 title: "ZaveStudios"
 ---
 
-ZaveStudios is my internal developer platform sandbox where I practice DevSecOps, secure data engineering, and operational AI through governed Kubernetes, GitOps, platform services, and contract-driven workloads.
+ZaveStudios is my internal developer platform sandbox: an opinionated platform architecture designed to make infrastructure predictable, composable, and easier to operate through bounded declarative contracts.
 
 This site is the public narrative and working map for that platform. It explains the intent, tradeoffs, and current shape, while demonstrating the architecture, governance, and operating discipline required to run a platform.
 
