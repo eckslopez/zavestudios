@@ -5,7 +5,7 @@ weight: 15
 
 This section is the source map for the platform's deeper operating material. The public site explains the platform in narrative form; the underlying governance, contract, and lifecycle documents live in [platform-docs](https://github.com/zavestudios/platform-docs).
 
-Use this page when you want to go past the public overview and inspect how the platform is defined in working documents.
+Use this page when you want to go beyond the public overview and inspect how the platform is defined in working documents.
 
 ## Reading Paths
 
