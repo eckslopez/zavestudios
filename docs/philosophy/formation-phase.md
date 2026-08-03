@@ -3,83 +3,55 @@ title: "Formation Phase"
 weight: 20
 ---
 
-This page summarizes what Formation Phase means for the platform. The canonical phase definition, current expectations, and exit criteria live in `platform-docs`.
+Formation Phase is the stage where ZaveStudios proves the platform shape before expanding its surface area.
 
-## What is Formation Phase?
+The goal is not to accumulate tools. The goal is to make the baseline path, capability areas, and operating model clear enough that future automation can encode them reliably.
 
-Formation is the stage where the platform surface is being proven, simplified, and stabilized before stronger operational commitments are made.
+## What Formation Means
 
-## Current Focus Areas
+**The platform surface is still being shaped.**
+Contracts, repository roles, shared capabilities, and runtime boundaries are being tested against real workloads before being treated as stable platform interfaces.
 
-### 1. Surface Stabilization
+**The sandbox is intentionally constrained.**
+ZaveStudios practices real platform patterns in a bounded environment so the architecture remains understandable and operable by one person.
 
-The focus is on stabilizing the contract surface, repository roles, and architectural boundaries so that future automation can be deterministic rather than ad hoc.
+**Manual work is still part of learning.**
+Some scaffolding and validation steps remain manual while the right platform behavior is being proven. Automation should follow clarity, not replace it.
 
-### 2. Reference Implementation
+## What Is Being Proven
 
-**Active Tenants:**
-- `mia` - OpenClaw AI assistant (Formation)
-- `panchito` - Real estate data ETL (Python, Flask, Celery)
-- `rigoberta` - Rails reference template
-- `thehouseguy` - Real estate listing application (Rails)
-- `oracle` - Market analysis service
-- `data-pipelines` - Data orchestration workload
+### DevSecOps Baseline
 
-**Platform Services:**
-- `platform-pipelines` - Shared CI/CD workflows
-- `image-factory` - Base container images
-- `pg` - Multi-tenant PostgreSQL provisioning
+Every workload should inherit the same secure path: shared CI/CD, policy, identity, observability, and GitOps-managed runtime state.
 
-**Infrastructure:**
-- GitOps automation (Flux + ArgoCD)
-- Kubernetes platform configuration
-- Multi-tenant database architecture
+### Secure Data Engineering
 
-### 3. Manual Conformance Mode
+The platform is proving workloads that ingest, transform, persist, orchestrate, protect, and analyze data under governed platform controls.
 
-Some of the intended platform automation is still being exercised manually. The canonical description of current-state formation behavior belongs in `platform-docs`.
+### Operational AI
 
-### 4. Developer Experience Standards
+The platform is proving how AI-enabled workloads and shared model access fit inside the same delivery, identity, observability, and runtime boundaries as other workloads.
 
-Developer experience is expected to become more uniform as the platform surface stabilizes. See the canonical [Developer Experience](https://github.com/zavestudios/platform-docs/blob/main/_platform/DEVELOPER_EXPERIENCE.md) document for the actual standard.
+### Reusable Platform Services
 
-## Exit Criteria
+Shared workflows, images, data services, orchestration, observability, security controls, and model access should become reusable platform capabilities rather than per-workload integrations.
 
-The exact exit criteria for Formation Phase are defined in the canonical operating model. This site treats them as part of the platform’s current narrative and progress framing, not as an authoritative specification.
+## Why Formation Matters
 
-## Constraints During Formation
+Formation keeps the platform from becoming a broad collection of infrastructure experiments.
 
-Formation is intentionally biased toward learning, stabilization, and narrowing the platform surface before scaling commitments. For the canonical constraint set, use `platform-docs`.
+It forces each part of the system to answer a practical question: does this make the platform easier to understand, adopt, operate, or govern?
 
-## Progress Tracking
+That discipline matters because the platform is meant to demonstrate architecture and operating judgment, not just tool familiarity.
 
-**Documentation gaps:** See [platform-docs issues](https://github.com/zavestudios/platform-docs/issues) for Formation Phase gap analysis:
+## Post-Formation
 
-- Issue #1: Minimum Tenant Scaffold specification
-- Issue #2: Manual Conformance Phase documentation
-- Issue #3: Workflow version pinning policy
-- Issue #4: Tenant lifecycle entry state clarification
-- Issue #5: Dependency visibility rule
-- Issue #6: Infrastructure mutation boundary
-- Issue #7: Generator vs shared workflow responsibility
-- Issue #8: Developer experience standard (completed)
+After Formation, the platform should be ready for stronger automation and clearer operating commitments:
 
-**Website redesign:** See [zavestudios issues](https://github.com/zavestudios/zavestudios/issues) for narrative entry point work:
+- generated scaffolding instead of repeated manual setup
+- more predictable workload adoption
+- clearer capability boundaries
+- stronger evidence that shared controls apply consistently
+- less operational ambiguity for the platform owner
 
-- Issue #79: Phase 2 - Navigation Gateway (completed)
-- Issue #80: Phase 3 - Narrative Content (in progress)
-- Issue #81: Phase 4 - Reference Implementations (pending)
-
-## Post-Formation Phases
-
-Later phases are defined canonically in the lifecycle and operating-model documents in `platform-docs`.
-
-## Timeline
-
-There is no fixed timeline. Formation should end when the canonical exit criteria are met, not when a calendar target is reached.
-
----
-
-**Current status:** Formation v0.1 remains the active framing for the platform narrative.
-
-See [Platform Operating Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/OPERATING_MODEL.md) for the complete Formation Phase specification.
+There is no fixed timeline. Formation should end when the platform surface is stable enough to operate and explain confidently.

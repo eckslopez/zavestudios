@@ -3,70 +3,50 @@ title: "Tenant Applications"
 weight: 40
 ---
 
-Contract-governed workloads running on the platform, demonstrating the kinds of applications the platform is intended to support.
+Tenant applications are reference workloads. Each one exists to prove a specific part of the platform path. The strongest examples show how workload owners consume the same baseline platform controls while adding secure data engineering, data pipeline, or operational AI concerns on top.
 
-This page is descriptive rather than normative. Canonical workload rules, contracts, and lifecycle semantics live in `platform-docs`.
+## Reference Workloads
 
----
+### listings-ingest - Batch ETL and Orchestration
 
-## Active Tenants
+[Listings-Ingest](https://github.com/zavestudios/listings-ingest) demonstrates a non-HTTP data workload: batch ingestion, validation, load stages, and Airflow-style orchestration. It proves that the platform is not limited to web services.
 
-### Mia - OpenClaw AI Assistant
-**Status:** Formation
-**Repository:** [zavestudios/mia](https://github.com/zavestudios/mia)
+**Platform proof point:** secure data engineering and data pipeline workloads can run through the same contract, CI/CD, and GitOps path as interactive applications.
 
-Python-based AI assistant workload demonstrating contract-driven tenant onboarding. Currently in Formation Phase as reference implementation for docker-compose development standards and contract validation.
+### Panchito - Service-Style ETL and Async Processing
 
-**Technologies:** Python, Flask, PostgreSQL
+[Panchito](https://github.com/zavestudios/panchito) demonstrates service-style ETL with API surfaces, asynchronous task processing, and broker/cache pressure through Redis. It helps prove that data workloads often need more than a database.
 
----
+**Platform proof point:** shared data-plane capabilities such as Redis should be platform-supported rather than rebuilt per workload.
 
-### Data Pipelines
-**Status:** Active
-**Repository:** [zavestudios/data-pipelines](https://github.com/zavestudios/data-pipelines)
+### Oracle - Analytical Worker and AI-Assisted Data Workflow
 
-Data pipeline orchestration workload demonstrating scheduled runtime patterns and data persistence capabilities.
+[Oracle](https://github.com/zavestudios/oracle) demonstrates a non-public analytical workload that combines data processing with AI-assisted workflow patterns.
 
----
+**Platform proof point:** analytical and AI-assisted workloads can inherit the DevSecOps baseline without requiring public ingress.
 
-### Oracle - Market Analysis Service
-**Status:** Active
-**Repository:** [zavestudios/oracle](https://github.com/zavestudios/oracle)
+### Mia - Operational AI Assistant Workload
 
-Real estate market analysis service providing analytical capabilities for property valuation and market trends.
+[Mia](https://github.com/zavestudios/mia) demonstrates operational AI inside platform boundaries. It consumes assistant and model-access patterns while remaining a governed workload rather than a new source of platform authority.
 
----
+**Platform proof point:** operational AI can use the same delivery, identity, observability, and runtime controls as other workloads.
 
-### Panchito - Real Estate ETL
-**Status:** Active
-**Repository:** [zavestudios/panchito](https://github.com/zavestudios/panchito)
+## Supporting Examples
 
-Real estate data ETL service built with Python, Flask, and Celery. Demonstrates asynchronous task processing and external data integration patterns.
+### Rigoberta - Rails Contract Example
 
-**Technologies:** Python, Flask, Celery, PostgreSQL
+[Rigoberta](https://github.com/zavestudios/rigoberta) is a compact Rails reference workload. It helps validate contract-backed deployment, PostgreSQL, metrics, and runtime dependency patterns for a conventional web service.
 
----
+### The House Guy - Data-Backed Consumer Application
 
-### Rigoberta - Rails Reference Template
-**Status:** Active
-**Repository:** [zavestudios/rigoberta](https://github.com/zavestudios/rigoberta)
+[TheHouseGuy](https://github.com/zavestudios/thehouseguy) is a data-backed application that consumes listing data and demonstrates the downstream side of the data pipeline story.
 
-Rails application serving as reference implementation for Ruby-based tenant workloads. Validates contract compatibility with Rails deployment patterns.
+## What These Workloads Prove
 
-**Technologies:** Ruby on Rails, PostgreSQL
+Together, the roster tests several platform expectations:
 
----
-
-### The House Guy - Listing Application
-**Status:** Active
-**Repository:** [zavestudios/thehouseguy](https://github.com/zavestudios/thehouseguy)
-
-Real estate listing application built with Ruby on Rails, demonstrating multi-tenant web application deployment with public HTTP exposure.
-
-**Technologies:** Ruby on Rails, PostgreSQL
-
----
-
-## Deployment Model
-
-These repos are intended to consume the same platform model: contract-backed workloads, shared delivery workflows, and GitOps-managed deployment state. See [Repository Directory](../documentation/repositories/) for repository discovery and [Conceptual Overview](../architecture/overview/) for an architectural summary. Use `platform-docs` for the canonical deployment and lifecycle model.
+- every workload enters through the DevSecOps baseline
+- data workloads can be batch, service-style, analytical, or downstream consumer apps
+- operational AI fits inside platform controls
+- shared services should be adopted through platform paths, not one-off integrations
+- the platform should support multiple workload shapes without multiplying delivery mechanics

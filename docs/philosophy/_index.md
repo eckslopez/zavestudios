@@ -3,52 +3,55 @@ title: "Philosophy"
 weight: 5
 ---
 
-ZaveStudios demonstrates a contract-driven approach to platform engineering. This page describes the thinking behind the platform; canonical rules and semantics live in `platform-docs`.
+ZaveStudios is built around a simple platform idea: workloads should declare intent, and the platform should own the mechanics.
+
+The platform sandbox exists to practice that idea across DevSecOps, secure data engineering, data pipelines, and operational AI. Its value comes from operating real patterns in a bounded environment: contract-driven workloads, shared platform capabilities, GitOps-managed state, and explicit security controls.
 
 ## Core Beliefs
+
+**DevSecOps is the baseline path.**
+Every workload inherits secure delivery, policy, identity, observability, and GitOps-managed runtime state before it becomes a data engineering or operational AI workload.
 
 **Contracts over conventions.**
 Workloads should describe intent through a small contract surface, while delivery mechanics stay platform-owned.
 
-**Formation before optimization.**
-The platform is currently in Formation Phase, focused on surface stabilization and reference implementation. Production-grade patterns are demonstrated, but automation and generator tooling are still being built.
+**Secure data engineering is the reference workload.**
+The platform is most useful when it hosts workloads that move, transform, protect, or analyze data under clear security and lifecycle controls.
 
-**Portability as a design constraint.**
-Infrastructure should be replaceable without tenant changes. Kubernetes clusters can run on libvirt/QEMU (sandbox) or AWS (production) with zero tenant awareness. Database engines can migrate from PostgreSQL to alternatives without application rewrites.
+**Operational AI is a platform capability area.**
+AI belongs inside the same platform boundaries as other workload concerns: identity, policy, observability, runtime state, and governed service consumption.
 
-**Multi-tenancy as proof of generality.**
-If the platform can't handle multiple isolated tenants with shared services, it hasn't proven its abstractions are sound. Multi-tenant database architecture and namespace isolation demonstrate the platform's capability to provide secure, performant resource sharing.
-
-**Documentation is architecture.**
-Canonical doctrine, contract schema, lifecycle, and operating rules belong in `platform-docs`. This site explains and interprets those choices rather than redefining them.
+**Depth over breadth.**
+New work should strengthen one of the core capability areas rather than expand the platform surface for its own sake.
 
 ## Design Philosophy
 
-**Start simple, stay simple.**
-Use managed PostgreSQL before building a database operator. Use GitHub Actions before building a custom CI system. Complexity is a cost, not a goal.
+**Real patterns, bounded environment.**
+The platform is personal, but the practices are intentionally real: governed Kubernetes, GitOps, reusable platform services, explicit workload contracts, and operating evidence.
 
-**Production patterns without production overhead.**
-Demonstrate GitOps, observability, and security patterns in a cost-efficient sandbox environment. Prove concepts work before scaling investment.
+**Automate after the pattern is clear.**
+Manual scaffolding is acceptable during Formation. Automation should encode stable patterns, not hide unresolved platform decisions.
 
-**Automate what repeats.**
-Manual scaffolding is acceptable in Formation Phase. Once patterns stabilize, generators should eliminate repetitive decisions.
+**Platform mechanics should be reusable.**
+Shared workflows, GitOps state, data services, observability, security controls, and model access should be platform capabilities rather than one-off workload integrations.
 
-**Operationally lean by design.**
-The platform is designed for low operational overhead through bounded interfaces and automation. If coordination cost dominates maintenance, the abstractions need refinement.
+**The system should remain understandable.**
+If the platform cannot be explained clearly, it is too broad or too implicit.
 
 ## Current Focus
 
-The platform is in **Formation Phase**, working toward exit criteria:
+The platform is in **Formation Phase**, working toward:
 
-- ≥80% of workloads deploy via contract without repo design decisions
-- Surface contract stabilized (no breaking changes for 90 days)
-- Generator automation implemented (Stages 1-3 operational)
-- Multi-tenant database architecture proven
+- a stable contract surface
+- a clearer platform capability boundary
+- secure data engineering reference workloads
+- operational AI patterns that stay inside platform controls
+- automation for repeated scaffolding and delivery mechanics
 
-See [Formation Phase Status](formation-phase/) for detailed progress and goals.
+See [Formation Phase Status](formation-phase/) for current framing.
 
-## Related Documentation
+## Related Sections
 
 - [Platform Principles](principles/) - Specific design principles and constraints
-- [Architectural Overview](../architecture/overview/) - Conceptual architecture and control plane model
-- [Platform Operating Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/OPERATING_MODEL.md) - Full operating model specification
+- [Architectural Overview](../architecture/overview/) - Conceptual architecture and control-plane model
+- [Platform Services](../platform-services/) - Shared capabilities consumed by workloads

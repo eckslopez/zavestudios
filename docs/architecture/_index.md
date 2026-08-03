@@ -3,17 +3,17 @@ title: "Architecture"
 weight: 10
 ---
 
-High-level architecture, control plane model, and design patterns.
+This section explains how the platform is structured: where workload intent lives, where runtime authority lives, and how shared capabilities are organized.
 
-## Overview
+## Pages
 
-- **[Conceptual Overview](overview/)** - Four-plane control model, repository taxonomy, and generator architecture
-- **[Architectural Influences](influences/)** - Works and practitioners that informed the platform design
+- **[Conceptual Overview](overview/)** - control model, baseline path, and capability areas
+- **[Architectural Influences](influences/)** - works and practitioners that informed the design
 
-## Authoritative Documentation
+## Deeper References
 
-For detailed architectural specifications, see [platform-docs](https://github.com/zavestudios/platform-docs):
+For the underlying operating and governance documents, use [platform-docs](https://github.com/zavestudios/platform-docs):
 
-- [Platform Operating Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/PLATFORM_OPERATING_MODEL.md)
+- [Platform Operating Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/OPERATING_MODEL.md)
 - [Architectural Doctrine (Tier 0)](https://github.com/zavestudios/platform-docs/blob/main/_platform/ARCHITECTURAL_DOCTRINE_TIER0.md)
 - [Contract Schema](https://github.com/zavestudios/platform-docs/blob/main/_platform/CONTRACT_SCHEMA.md)
