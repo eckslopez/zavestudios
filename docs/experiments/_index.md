@@ -1,89 +1,64 @@
 ---
-title: "Experiments"
+title: "Proofs of Concept"
 weight: 50
 ---
 
-Proofs of concept, research, and exploratory work that inform platform evolution during Formation Phase.
+POCs test whether a pattern is worth adding to the platform path.
 
-Experiments validate architectural assumptions, test infrastructure patterns, and prove feasibility before committing to production implementation. They represent ongoing exploration rather than operational capabilities.
+ZaveStudios uses POCs to evaluate new capabilities before treating them as part of the supported platform model. A POC is useful when it clarifies DevSecOps, secure data engineering, data pipelines, operational AI, or the adoption path between workload intent and platform-provided mechanics.
 
----
+## Evaluation Lens
+
+A strong POC answers practical platform questions:
+
+- Does this strengthen one of the platform capability areas?
+- Does it improve the DevSecOps baseline?
+- Does it make secure data engineering, data pipelines, or operational AI easier to adopt?
+- Can the pattern become reusable across workloads?
+- Can the platform operate it without adding unclear ownership or hidden manual steps?
 
 ## Current Research Areas
 
-### Multi-Tenant Database Architecture
-**Status:** Active validation
+### Data Capability Patterns
 
-Research into PostgreSQL multi-tenant patterns:
-- Schema-per-tenant isolation vs database-per-tenant
-- Connection pooling via PgBouncer
-- Resource limits and query monitoring
-- Tenant-specific migration tooling
+POCs in this area test workload data isolation, connection management, broker/cache dependencies, orchestration, and migration patterns.
 
-**Goal:** Prove multi-tenant database architecture is production-viable before Formation Phase exit. See [pg platform service](../platform-services/) for current implementation.
+**Platform question:** What data-plane capabilities should be platform-owned so data workloads do not rebuild them individually?
 
-### Generator Automation Patterns
-**Status:** Specification complete, implementation pending
+### Operational AI Patterns
 
-Research into code generation patterns for:
-- Repository scaffolding from minimal input
-- Workflow binding generation
-- GitOps manifest generation from contracts
-- Capability injection without workload modification
+POCs in this area test shared model access, assistant workflows, and controlled interaction between AI systems and platform information.
 
-**Goal:** Define generator specifications before implementation. See [Generator Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/GENERATOR_MODEL.md) for current specification.
+**Platform question:** How can AI become useful operationally without bypassing identity, policy, observability, or GitOps boundaries?
 
-### Infrastructure Portability Validation
-**Status:** Ongoing
+### Adoption Automation
 
-Validation of zero-tenant-change infrastructure migrations:
-- Future: Sandbox → AWS migration design
-- Database engine portability testing
+POCs in this area test repository scaffolding, workflow binding, GitOps generation, and capability attachment.
 
-**Goal:** Prove infrastructure portability claims through actual migrations. No tenant code changes permitted.
+**Platform question:** Which repeated adoption steps are stable enough to automate?
 
----
+### Security and Observability Patterns
 
-## Experiment Lifecycle
+POCs in this area test how workloads inherit controls and how the platform can produce evidence that those controls apply consistently.
 
-**Formation Phase experiments:**
-1. Identify architectural assumption or pattern to validate
-2. Design minimal proof-of-concept implementation
-3. Test at sandbox scale (not production traffic)
-4. Document findings and architectural implications
-5. Either: promote to platform capability or archive as research
+**Platform question:** How does the platform prove that the secure baseline is actually present?
 
-**Promotion criteria:**
-- Pattern proven stable and useful
-- Can be generalized for all tenant types
-- Maintenance burden justified by capability value
+## Possible Outcomes
 
-**Archive criteria:**
-- Pattern disproven or impractical at scale
-- Architectural direction changed
-- Research question answered without implementation need
+**Promote to platform capability.**
+The pattern becomes reusable platform behavior.
 
----
+**Promote to reference workload.**
+The pattern is best demonstrated through a workload that exercises the platform path.
 
-## Experimental vs Production
+**Keep as research.**
+The POC remains useful as design evidence, but is not ready to shape the platform.
 
-**Experiments may:**
-- Use unstable APIs or unproven patterns
-- Require manual intervention or scaffolding
-- Change direction based on findings
-- Be abandoned if assumptions fail
+**Set aside.**
+The pattern does not strengthen the platform path enough to justify the added surface area.
 
-**Production capabilities must:**
-- Have proven stability and reliability
-- Be automated and self-service
-- Maintain backward compatibility
-- Support all tenant types equally
+## Formation Role
 
-Experiments inform production decisions. Once promoted, they follow platform stability guarantees.
+During Formation, POCs help keep platform growth disciplined. They let the platform test ideas without committing every useful experiment to the long-term operating model.
 
----
-
-## Related Documentation
-
-- [Formation Phase Status](../philosophy/formation-phase/) - Formation Phase research priorities and exit criteria
-- [Platform Operating Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/PLATFORM_OPERATING_MODEL.md) - Formation Phase constraints and goals
+The goal is not to collect POCs. The goal is to identify which patterns deserve to become part of the platform path.

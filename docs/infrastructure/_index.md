@@ -3,106 +3,75 @@ title: "Infrastructure"
 weight: 20
 ---
 
-Shared runtime substrate providing Kubernetes clusters, GitOps automation, and infrastructure provisioning.
+Infrastructure is the substrate the platform stands on: Kubernetes, GitOps, ingress, isolation controls, and the environment discipline required to run shared capabilities safely. The point of this layer is to give the platform a stable place to enforce runtime policy, tenant isolation, routing, and service integration while workload owners stay focused on application and data intent.
 
-This page summarizes the infrastructure layer. Canonical mutation boundaries, control-plane rules, and portability constraints live in `platform-docs`.
+## What Infrastructure Owns
 
----
+Infrastructure ownership in ZaveStudios is deliberately narrow and important:
 
-## Infrastructure Components
+- Kubernetes runtime environments
+- GitOps-managed desired state
+- namespace, network, and access boundaries
+- ingress and shared routing patterns
+- the host layer for platform services
 
-### Kubernetes Platform Infrastructure
-**Repository:** [zavestudios/kubernetes-platform-infrastructure](https://github.com/zavestudios/kubernetes-platform-infrastructure)
+This is how the platform keeps delivery and runtime behavior predictable without asking each workload to make infrastructure design decisions.
 
-Kubernetes cluster definitions and platform configuration for multiple environments.
+## Core Layers
 
-**Environments:**
-- **Sandbox:** libvirt/QEMU + k3s for cost-efficient validation
-- **Production Target:** AWS EKS design (not yet deployed)
+### Kubernetes Substrate
 
-**Capabilities:**
-- Multi-tenant namespace provisioning
-- RBAC and network policies
-- Resource quotas and limits
-- Ingress and load balancer configuration
+Kubernetes is the execution layer for workloads and shared services. It provides the place where namespace isolation, policy enforcement, resource controls, ingress, and service connectivity can be applied consistently.
 
-**Portability:** Cluster substrate is replaceable without tenant changes. Applications deploy via contracts, infrastructure satisfies them regardless of provider.
+**Supporting repository:** [kubernetes-platform-infrastructure](https://github.com/zavestudios/kubernetes-platform-infrastructure)
 
----
+This layer should remain platform-owned. Workloads should not carry cluster-shaping logic in their own repositories.
 
-### GitOps - Declarative Cluster State
-**Repository:** [zavestudios/gitops](https://github.com/zavestudios/gitops)
+### GitOps Desired State
 
-GitOps state management using Flux and ArgoCD.
+GitOps represents the runtime state the platform intends to exist. That includes workload registration, service integration, routing, and platform capability materialization. It is the reviewable bridge between validated intent and live runtime behavior.
 
-**Capabilities:**
-- Automated deployment reconciliation
-- Tenant namespace and resource provisioning
-- Configuration drift detection and correction
-- Progressive delivery patterns (future)
+**Supporting repository:** [gitops](https://github.com/zavestudios/gitops)
 
-This repository represents the desired-state layer for platform and workload deployment.
+GitOps matters here because runtime change should be legible, reviewable, and reproducible rather than hidden in manual operations.
 
----
+### Environment Automation
 
-### Ansible - Infrastructure Automation
-**Repository:** [zavestudios/ansible](https://github.com/zavestudios/ansible)
+Some infrastructure work still lives below the GitOps layer: provisioning, host preparation, and environment automation. That work exists to support the platform substrate, not to become an alternate path for application delivery.
 
-Infrastructure automation and configuration management for cluster provisioning, node configuration, and infrastructure-level operations.
+**Supporting repository:** [ansible](https://github.com/zavestudios/ansible)
 
-**Scope:**
-- Cluster bootstrapping and node provisioning
-- Infrastructure-level configuration
-- Automated infrastructure validation
+## Isolation Model
 
----
+Infrastructure is where isolation becomes real.
 
-### Big Bang - Platform One Distribution
-**Repository:** [zavestudios/bigbang](https://github.com/zavestudios/bigbang)
+**Namespace isolation:** workloads run in bounded namespaces with enforced access controls.
 
-Platform One Big Bang distribution configuration providing DoD-validated security and observability patterns.
+**Network isolation:** communication boundaries are governed through platform-owned policy rather than ad hoc workload rules.
 
-**Capabilities:**
-- Hardened Kubernetes platform configuration
-- Integrated observability stack
-- Security tooling and compliance patterns
+**Data isolation:** workloads consume data services through approved access paths and tenant-aware controls. The data service itself is a platform capability; the isolation guarantee depends on the infrastructure layer enforcing the boundary consistently.
 
----
+## Portability Constraint
 
-## Infrastructure Boundaries
+Infrastructure should be replaceable without forcing workload redesign.
 
-Infrastructure repositories define the shared substrate that workload and platform-service repositories consume. See `platform-docs` for the canonical authority boundaries and enforcement model.
+That does not mean every environment is identical. It means workloads declare intent at the platform surface, and the infrastructure layer satisfies that intent without leaking environment-specific mechanics back into workload repositories.
 
----
+This is one of the main reasons the infrastructure boundary has to stay narrow: once environment-specific behavior leaks upward, the platform stops being portable and starts becoming a collection of special cases.
 
-## Multi-Tenant Architecture
+## Why This Matters
 
-**Namespace Isolation:**
-Each tenant deploys to `ns-<tenant-name>` with enforced RBAC. Tenants cannot observe or mutate resources in other namespaces.
+Platform services and tenant workloads only stay predictable if the underlying infrastructure remains disciplined.
 
-**Database Isolation:**
-PostgreSQL multi-tenant architecture provides schema-per-tenant isolation with connection pooling and resource limits. See [pg platform service](../platform-services/).
+- Workloads should not invent their own runtime topology.
+- Platform services should not rely on hidden manual environment setup.
+- GitOps should remain the visible runtime authority.
+- The substrate should support the baseline DevSecOps path before any workload-specific specialization is added.
 
-**Network Isolation:**
-Network policies restrict inter-namespace communication. Tenants consume shared services via defined interfaces, not direct pod access.
+Infrastructure is therefore not a separate concern from the platform story. It is the part that makes the rest of the platform credible.
 
----
+## Related Sections
 
-## Infrastructure Portability
-
-**Design constraint:** Infrastructure should be replaceable without tenant changes.
-
-**Portability demonstrations:**
-- PostgreSQL engine is abstracted via contract (`spec.persistence.engine: postgres`)
-- Future AWS migration will be infrastructure-only operation
-- Cluster substrate (libvirt/QEMU + k3s → AWS EKS) replaceable without tenant awareness
-
-Details of the portability model are defined canonically in `platform-docs`.
-
----
-
-## Related Documentation
-
-- [Repository Directory](../documentation/repositories/) - Complete infrastructure repository taxonomy
-- [Architectural Doctrine](https://github.com/zavestudios/platform-docs/blob/main/_platform/ARCHITECTURAL_DOCTRINE_TIER0.md) - Boundary enforcement principles
-- [Platform Operating Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/OPERATING_MODEL.md) - Infrastructure mutation authority
+- [Architecture](../architecture/overview/) - Where infrastructure sits in the control model
+- [Platform Services](../platform-services/) - Shared capabilities that depend on this substrate
+- [Documentation](../documentation/) - Deeper operating and governance material

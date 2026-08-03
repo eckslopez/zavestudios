@@ -2,62 +2,65 @@
 title: "ZaveStudios"
 ---
 
-ZaveStudios is a public narrative and interpretation layer for the platform work collected across the ZaveStudios repositories. It explains the intent, tradeoffs, and shape of the platform without serving as the canonical source for governance or contract rules.
+ZaveStudios is my internal developer platform sandbox where I practice DevSecOps, secure data engineering, and operational AI through governed Kubernetes, GitOps, platform services, and contract-driven workloads.
 
-The underlying platform work is focused on reducing architectural variance across workloads while preserving application-level autonomy.
-
----
-
-## How It Works
-
-At a high level, tenant repositories declare intent through a small contract surface and the platform translates that intent into:
-- Container builds and semantic versioning
-- GitOps manifests and automated deployments
-- Isolated database resources with connection pooling
-- Observability, security, and service mesh integration
-
-The canonical contract shape and validation rules live in `platform-docs`, not on this site.
+This site is the public narrative and working map for that platform. It explains the intent, tradeoffs, and current shape, while demonstrating the architecture, governance, and operating discipline required to run a platform.
 
 ---
 
 ## Why This Exists
 
-Great platforms make infrastructure decisions explicit, contracts versioned, and tenant onboarding predictable. They convert complexity into product interfaces that developers can understand and trust.
+I created ZaveStudios to maintain a hands-on platform sandbox independent of any employer environment. It gives me a place to build, operate, break, document, and refine real systems so I can keep pace with DevSecOps, secure data engineering, data pipelines, and operational AI.
 
-This platform demonstrates those principles:
+The discipline of running a platform requires strong organizing principles. This platform stays understandable by organizing the work into three practice lanes:
 
-**Contracts over conventions.** Requirements are explicit, not inferred from repository structure or deployment patterns.
+**DevSecOps.** Secure delivery, policy, identity, observability, and operational discipline.
 
-**Documentation is architecture.** The canonical operating model, contract schema, lifecycle rules, and validation rules live in `platform-docs`. This site explains them, but does not redefine them.
+**Secure data engineering.** Data ingestion, transformation, persistence, orchestration, and isolation.
 
-**Formation before optimization.** Prove patterns work at reference scale before investing in generators and automation.
+**Operational AI.** Shared model access, AI-enabled workloads, and agent-assisted platform operations.
 
-**Platform teams of one.** If it requires a team to operate, the abstractions failed.
+**Documentation as a first-class platform element.** The operating model, contract shape, lifecycle rules, and validation expectations are part of the platform itself, not an afterthought.
 
 ---
 
+## How It Works
+
+At a high level, the platform has two jobs: define a clear capability set and make adoption predictable for workload owners. Workload repositories declare intent through a small contract surface, and the platform translates that intent into:
+
+- shared CI/CD and image build behavior
+- GitOps-managed runtime state
+- data services and tenant isolation
+- observability, policy, and security controls
+- shared model access for operational AI
+
+These capability areas also define the platform boundary: work that does not strengthen one of them should be revised, deferred, or left outside the platform narrative.
+
+The contract keeps workload intent explicit while the platform owns the mechanics.
+
+---
+
+
 ## What You'll Find Here
 
-**[Philosophy](philosophy/)** — Core beliefs, design principles, and Formation Phase status
+The left navigation expands the platform definition into a small set of readable sections:
 
-**[Architecture](architecture/)** — Four-plane control model and contract-driven design
+**[Philosophy](philosophy/)** - why the platform exists, how scope is controlled, and what principles guide platform decisions
 
-**[Documentation](documentation/)** — Pointers to the canonical governance and operational docs
+**[Architecture](architecture/)** - how contracts, CI, GitOps, runtime state, and capability lanes fit together
 
-**[Infrastructure](infrastructure/)** — Kubernetes clusters, GitOps, and infrastructure portability
+**[Infrastructure](infrastructure/)** - the Kubernetes and GitOps substrate that makes the platform concrete
 
-**[Platform Services](platform-services/)** — Shared workflows, base images, and multi-tenant database provisioning
+**[Platform Services](platform-services/)** - the shared CI/CD, image, data, observability, security, and model-access capabilities
 
-**[Tenant Applications](applications/)** — Six running workloads demonstrating contract patterns
+**[Tenant Applications](applications/)** - reference workloads showing how secure data engineering, data pipelines, and operational AI consume the platform
 
-**[Experiments](experiments/)** — Research validating architectural assumptions before production
+**[Proofs of Concept](experiments/)** - POCs used to test whether patterns should become part of the platform path
+
+**[Documentation](documentation/)** - source references and deeper operating documents when a reader needs the underlying detail
 
 ---
 
 ## Current Status
 
-The platform is in **Formation Phase** — stabilizing contracts, proving multi-tenant patterns, and building reference implementations before committing to full automation.
-
-No revenue dependencies. No customer commitments. Just deliberate architecture and patient execution.
-
-See [platform-docs](https://github.com/zavestudios/platform-docs) for the canonical governance specifications, contract rules, and Formation Phase exit criteria.
+The platform is in **Formation Phase**: stabilizing the contract surface, narrowing scope, and keeping the system small enough for one operator to understand and improve.

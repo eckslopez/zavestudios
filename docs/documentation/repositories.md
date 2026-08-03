@@ -3,83 +3,49 @@ title: "Repository Directory"
 weight: 10
 ---
 
-All repositories in the ZaveStudios organization, organized by taxonomy category.
-
-See [REPO_TAXONOMY.md](https://github.com/zavestudios/platform-docs/blob/main/_platform/REPO_TAXONOMY.md) for detailed classification rules and governance.
-
----
+This page is a compact map of the repository estate behind the platform.
 
 ## Control Plane
 
-Authoritative architectural doctrine, operating model, and governance contracts.
-
-| Repository | Description |
-|------------|-------------|
-| [platform-docs](https://github.com/zavestudios/platform-docs) | Platform operating model, architectural doctrine, contract schema, lifecycle model, and generator specifications |
-
----
+| Repository | Role |
+|------------|------|
+| [platform-docs](https://github.com/zavestudios/platform-docs) | Governance, contracts, lifecycle, and operating model |
 
 ## Infrastructure
 
-Repositories that define or mutate shared runtime substrate.
-
-| Repository | Description |
-|------------|-------------|
-| [kubernetes-platform-infrastructure](https://github.com/zavestudios/kubernetes-platform-infrastructure) | Kubernetes cluster definitions and infrastructure configuration |
-| [ansible](https://github.com/zavestudios/ansible) | Infrastructure automation and configuration management |
-| [gitops](https://github.com/zavestudios/gitops) | GitOps state management (Flux + ArgoCD) |
-| [bigbang](https://github.com/zavestudios/bigbang) | Platform One Big Bang distribution configuration |
-
----
+| Repository | Role |
+|------------|------|
+| [kubernetes-platform-infrastructure](https://github.com/zavestudios/kubernetes-platform-infrastructure) | Cluster substrate and shared platform configuration |
+| [ansible](https://github.com/zavestudios/ansible) | Environment provisioning and host automation |
+| [gitops](https://github.com/zavestudios/gitops) | Desired runtime state and reconciliation surface |
 
 ## Platform Services
 
-Reusable capabilities consumed by tenants.
+| Repository | Role |
+|------------|------|
+| [platform-pipelines](https://github.com/zavestudios/platform-pipelines) | Shared CI/CD workflows |
+| [image-factory](https://github.com/zavestudios/image-factory) | Base images and supply-chain primitives |
+| [pg](https://github.com/zavestudios/pg) | PostgreSQL platform data capability |
+| [airflow](https://github.com/zavestudios/airflow) | Shared orchestration capability for data workloads |
+| [llm-platform](https://github.com/zavestudios/llm-platform) | Shared model-access capability |
+| [zave-cli](https://github.com/zavestudios/zave-cli) | Workload bootstrap and scaffolding CLI |
 
-| Repository | Description |
-|------------|-------------|
-| [platform-pipelines](https://github.com/zavestudios/platform-pipelines) | Shared CI/CD workflows for container builds, static sites, and deployments |
-| [image-factory](https://github.com/zavestudios/image-factory) | Base container image builds and supply chain primitives |
-| [pg](https://github.com/zavestudios/pg) | PostgreSQL multi-tenant database provisioning and management |
+## Reference Workloads
 
----
-
-## Tenants
-
-Deployable workloads governed by the platform contract.
-
-| Repository | Description | Status |
-|------------|-------------|--------|
-| [mia](https://github.com/zavestudios/mia) | OpenClaw AI assistant | Formation |
-| [data-pipelines](https://github.com/zavestudios/data-pipelines) | Data pipeline orchestration workload | Active |
-| [oracle](https://github.com/zavestudios/oracle) | Real estate market analysis service | Active |
-| [panchito](https://github.com/zavestudios/panchito) | Real estate data ETL service (Python, Flask, Celery) | Active |
-| [rigoberta](https://github.com/zavestudios/rigoberta) | Rails reference template application | Active |
-| [thehouseguy](https://github.com/zavestudios/thehouseguy) | Real estate listing application (Ruby on Rails) | Active |
-
----
+| Repository | Role |
+|------------|------|
+| [listings-ingest](https://github.com/zavestudios/listings-ingest) | Batch ingestion and ETL reference workload |
+| [panchito](https://github.com/zavestudios/panchito) | Service-style ETL and async processing workload |
+| [oracle](https://github.com/zavestudios/oracle) | Analytical and AI-assisted data workflow |
+| [mia](https://github.com/zavestudios/mia) | Operational AI assistant workload |
+| [rigoberta](https://github.com/zavestudios/rigoberta) | Supporting Rails workload example |
+| [thehouseguy](https://github.com/zavestudios/thehouseguy) | Supporting listing application example |
 
 ## Portfolio
 
-External-facing or personal projects outside the platform reference model.
+| Repository | Role |
+|------------|------|
+| [zavestudios](https://github.com/zavestudios/zavestudios) | Public platform manual and narrative site |
+| [xavierlopez.me](https://github.com/zavestudios/xavierlopez.me) | Personal portfolio workload |
 
-| Repository | Description | Contract Status |
-|------------|-------------|-----------------|
-| [zavestudios](https://github.com/zavestudios/zavestudios) | Platform documentation and marketing site (Hugo) | Non-contracted |
-| [xavierlopez.me](https://github.com/zavestudios/xavierlopez.me) | Personal portfolio site (Jekyll) | Non-contracted |
-
-**Note:** Portfolio repositories currently consume shared workflows but do not follow the full platform contract model. See [Portfolio Contract Migration](https://github.com/zavestudios/platform-docs/blob/main/_platform/REPO_TAXONOMY.md#portfolio-contract-migration) for future contract-governed model.
-
----
-
-## Classification Rules
-
-1. Every repository belongs to exactly one category
-2. Category assignment is declared authoritatively in [REPO_TAXONOMY.md](https://github.com/zavestudios/platform-docs/blob/main/_platform/REPO_TAXONOMY.md)
-3. Reclassification requires explicit taxonomy update via pull request
-4. Only **infrastructure** repositories may mutate shared infrastructure state
-5. Only **tenant** repositories may deploy runtime workloads
-6. **platform-service** repositories provide reusable capabilities
-7. **portfolio** repositories are excluded from platform invariants unless explicitly promoted
-
-Ambiguity is architectural debt. Classification changes must be deliberate and reviewable.
+For classification rules and deeper governance, use [platform-docs](https://github.com/zavestudios/platform-docs).

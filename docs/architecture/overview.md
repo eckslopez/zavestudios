@@ -3,97 +3,82 @@ title: "Conceptual Overview"
 weight: 5
 ---
 
-This page is a conceptual overview of the platform architecture. Canonical authority for control-plane boundaries, taxonomy, lifecycle, contracts, and validation lives in `platform-docs`.
+ZaveStudios is a platform built around a baseline path: workloads declare intent, and the platform supplies the secure delivery and runtime mechanics.
+
+The architecture keeps DevSecOps, secure data engineering, data pipelines, and operational AI inside one governed shape. Workloads should not invent their own build pipelines, deployment paths, data-service wiring, observability model, or model-access pattern.
+
+## Architectural Shape
+
+The platform has two responsibilities:
+
+1. Define a clear capability set.
+2. Make adoption predictable for workload owners.
+
+That means the architecture is less about any single tool and more about where decisions live. Workload owners should make application and data decisions. The platform should own the repeatable mechanics around delivery, policy, runtime state, data services, observability, and shared model access.
+
+## Baseline Path
+
+Every workload enters through the same DevSecOps path:
+
+- shared CI/CD and image build behavior
+- policy and identity controls
+- observability expectations
+- GitOps-managed runtime state
+- platform-owned service integration
+
+Secure data engineering, data pipelines, and operational AI are layered on top of that baseline. They do not bypass it.
 
 ## Four-Plane Control Model
 
-The platform operates through four distinct planes:
-
 ### 1. Contract Plane
-The contract plane captures tenant intent through a small declarative interface in each workload repository. See `platform-docs` for the canonical contract schema and supported fields.
+
+The contract plane captures workload intent. It keeps the workload interface small enough for owners to understand while giving the platform a structured input for validation and automation.
 
 ### 2. CI Plane
-The CI plane validates contracts, builds artifacts, and proposes GitOps updates:
 
-- Contract validation (schema, required fields, valid enum values)
-- Container image builds with semantic tagging
-- GitOps repository updates via automation
-
-Tenant repositories are expected to stay thin and consume shared workflow logic from `platform-pipelines`.
+The CI plane validates workload intent, builds artifacts, and proposes runtime changes. CI is a proposal layer: it should not become an independent runtime authority.
 
 ### 3. GitOps Plane
-The GitOps plane manages declarative cluster state through Git:
 
-- Tenant namespace definitions
-- Deployment manifests (Deployment, Service, Ingress)
-- Database provisioning via platform services
-- Secrets management and configuration
-
-GitOps is the intended state authority. See `CONTROL_PLANE_MODEL.md` and `GITOPS_MODEL.md` in `platform-docs` for the authoritative boundaries and exceptions.
+The GitOps plane owns desired runtime state. Deployment state, workload registration, routing, service integration, and environment configuration should be represented through Git-managed state.
 
 ### 4. Runtime Plane
-The runtime plane executes the desired state produced by the earlier layers:
 
-- Namespace isolation per tenant
-- Database isolation (schema-per-tenant or database-per-tenant)
-- Network policies and resource quotas
-- Observability (metrics, logs, traces)
+The runtime plane executes declared state. Kubernetes, data services, observability, policy, and security controls should reflect platform-managed configuration rather than unmanaged manual changes.
 
-The intended change path is Contract → CI → GitOps → Runtime.
+The intended flow is:
 
-## Control Flow
+```text
+Workload intent -> CI validation/build -> GitOps desired state -> Runtime execution
+```
 
-**Illustrative deployment flow:**
+## Capability Areas
 
-1. Developer updates `zave.yaml` contract in tenant repository
-2. GitHub Actions workflow validates contract schema
-3. On merge to main: CI builds container image, tags with semantic version
-4. CI updates GitOps repository with new image reference
-5. Flux/ArgoCD detects GitOps change, applies to cluster
-6. Kubernetes schedules workload in tenant namespace
-7. Platform services provision database resources if declared in contract
+**DevSecOps** provides the operating substrate: CI/CD, GitOps, policy, identity, observability, and security controls.
 
-The canonical lifecycle and current Formation-phase caveats are defined in `platform-docs`.
+**Secure data engineering** provides the primary workload domain: ingestion, transformation, persistence, orchestration, tenant isolation, and analysis.
 
-## Repository Taxonomy
+**Operational AI** provides shared model access and AI-enabled workload patterns inside the same delivery, identity, observability, and runtime boundaries.
 
-Repositories are grouped into a small number of categories to keep authority boundaries explicit. See [Repository Directory](../../documentation/repositories/) and the canonical taxonomy in `platform-docs` for the current classification table and governance rules.
+## Adoption Model
 
-## Generator Model
+The platform is successful when workload adoption is predictable:
 
-The platform aims to replace repeated manual scaffolding with deterministic generators for repositories, pipelines, GitOps artifacts, and optional capabilities. See the canonical [Generator Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/GENERATOR_MODEL.md) for the actual stage definitions.
+- the workload owner declares intent
+- shared workflows handle build and validation
+- GitOps represents desired runtime state
+- platform services satisfy data, observability, security, and model-access needs
+- the runtime reflects the declared state
 
-## Multi-Tenant Architecture
+This is the difference between a platform and a collection of infrastructure scripts: the supported path is explicit, repeatable, and easier than building a custom path.
 
-**Namespace Isolation:**
-Each tenant deploys to `ns-<tenant-name>` with RBAC boundaries. Tenants cannot access other namespaces.
+## Formation Status
 
-**Database Isolation:**
-PostgreSQL multi-tenant architecture provides:
-- Schema-per-tenant isolation with shared PostgreSQL instance
-- Connection pooling via PgBouncer
-- Resource limits and query monitoring
-- Migration tooling for tenant-specific schema changes
+ZaveStudios is still in Formation Phase. The architecture is being simplified and stabilized before stronger automation and operating commitments are made.
 
-**Shared Services:**
-All tenants consume shared GitOps, CI/CD, and observability infrastructure. Cost-efficient resource sharing without security or performance compromise.
+## Related Sections
 
-## Infrastructure Portability
-
-The platform runs on multiple substrates without tenant changes:
-
-**Sandbox:** libvirt/QEMU + k3s + PostgreSQL
-**Production Target:** AWS EKS + RDS PostgreSQL
-
-Tenants declare requirements in contracts. Platform chooses how to satisfy based on environment. Database engine, Kubernetes distribution, and cloud provider are replaceable without application rewrites.
-
-## Formation Phase
-
-The platform is still in Formation Phase. This means the shape of the system is established, but some of the intended automation is still being stabilized. See [Formation Phase Status](../philosophy/formation-phase/) and the canonical operating model in `platform-docs` for the current phase definition and exit criteria.
-
-## Related Documentation
-
-- [Platform Philosophy](../philosophy/) - Core beliefs and design philosophy
-- [Design Principles](../philosophy/principles/) - Specific principles and constraints
-- [Platform Operating Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/OPERATING_MODEL.md) - Canonical operating model specification
-- [Contract Schema](https://github.com/zavestudios/platform-docs/blob/main/_platform/CONTRACT_SCHEMA.md) - Full contract field reference
+- [Philosophy](../philosophy/) - Why the platform is shaped this way
+- [Design Principles](../philosophy/principles/) - Decision logic behind the architecture
+- [Platform Services](../platform-services/) - Shared capabilities consumed by workloads
+- [Tenant Applications](../applications/) - Reference workloads that exercise the platform path

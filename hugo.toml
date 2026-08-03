@@ -9,6 +9,7 @@ theme = "hugo-theme-relearn"
   disableTitleSeparator = true
   collapsibleMenu = true
   alwaysopen = false
+  externallinktarget = true
   [params.logo]
     src = "/images/logo.png"
 

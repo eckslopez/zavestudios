@@ -3,97 +3,62 @@ title: "Design Principles"
 weight: 10
 ---
 
-These principles explain the architectural philosophy behind ZaveStudios. For authoritative governance rules and requirements, see [platform-docs](https://github.com/zavestudios/platform-docs).
+These principles describe how ZaveStudios keeps platform work coherent: every workload enters through the same secure path, and platform mechanics stay reusable instead of being rebuilt per application.
 
-## Why Contracts
+## Baseline Path
 
-**Single source of requirements.**
-The platform favors a single declarative contract over scattered configuration. When tenants express needs in one place, the platform can reason about dependencies, validate requirements, and automate scaffolding consistently.
+**DevSecOps comes first.**
+Every workload must pass through secure delivery, policy, identity, observability, and GitOps-managed runtime state before layering on data engineering or operational AI concerns.
 
-**Declare intent, not implementation.**
-Asking for "a PostgreSQL database" rather than "this specific RDS configuration" lets the platform choose implementations that fit the environment. Sandbox gets local PostgreSQL, production gets managed RDS—same contract, different satisfaction strategy.
+**Security is inherited**
+Workloads should receive standard controls from the platform path. Teams should not need to reinterpret identity, policy, networking, secrets, or observability from scratch.
 
-**No escape hatches.**
-When tenants need to bypass contracts, it signals incomplete platform capabilities, not legitimate exceptions. Gaps should drive platform evolution. Every escape hatch is technical debt.
+**Runtime state belongs in Git.**
+GitOps keeps platform and workload state reviewable, reproducible, and recoverable. The runtime should reflect declared state rather than become an undocumented source of truth.
 
-**Stability over features.**
-Contract breaking changes force every tenant to migrate simultaneously. The platform values stability and backward compatibility over rapid feature iteration. New capabilities should extend contracts, not replace them.
+## Intent Over Mechanics
 
-## Why Boundaries
+**Workloads declare intent.**
+Applications should express what they need through small, explicit interfaces: runtime shape, exposure, delivery behavior, data needs, and capability consumption.
 
-**Boundary enforcement.**
-Clear repository boundaries (infrastructure vs tenant vs platform-service) prevent scope creep and coupling. When only infrastructure repos can mutate shared state, you eliminate "just this once" exceptions that accumulate into chaos.
+**The platform owns mechanics.**
+Build behavior, deployment mechanics, routing, policy, data provisioning, observability, and model access should be implemented by platform-owned paths.
 
-**Portability by default.**
-Substrate changes (libvirt/QEMU → AWS, PostgreSQL → alternative engines) should require zero tenant awareness. Portability validates that abstractions are sound. If changing providers forces tenant rewrites, the contract failed.
+**Contracts reduce variance.**
+A stable contract surface keeps onboarding and change management predictable. If every workload needs bespoke infrastructure decisions, the platform is not doing its job.
 
-**Cost-efficient validation.**
-Proving patterns work in low-cost sandbox environments before production investment reduces risk. If production patterns can't work at sandbox scale, they're probably too complex.
+## Shared Capabilities
 
-**Declarative over imperative.**
-GitOps and declarative infrastructure eliminate "it works on my machine" and "I ran this kubectl command six months ago." When all state is in Git, you can recreate environments reliably.
+**Shared workflows beat custom pipelines.**
+CI/CD behavior should be centralized and reusable so security, delivery, and build improvements propagate through the platform path.
 
-## Why Automation
+**Platform services provide leverage.**
+Images, data services, orchestration, observability, security controls, and model access should be reusable capabilities consumed by workloads through clear interfaces.
 
-**Generators replace humans.**
-Repetitive decisions accumulate into maintenance burden. Scaffolding repositories, wiring workflows, and generating manifests should be automated. Humans design patterns, generators execute them.
+**FinOps: Cost is an architectural signal.**
+ZaveStudios treats cost as part of platform operating discipline. Shared capabilities, resource boundaries, GitOps review, and model/data lifecycle controls keep platform cost visible, attributable, and intentionally constrained. This area will expand as the platform develops stronger operating evidence.
 
-**Shared workflows, not custom pipelines.**
-Custom CI logic in every tenant repository multiplies maintenance and divergence. Centralizing workflow logic in platform-pipelines means fixes propagate everywhere simultaneously.
+**Adoption should be predictable.**
+Workload owners should know which capabilities exist and how to consume them without negotiating custom infrastructure each time.
 
-**Manual Conformance is temporary.**
-Manual scaffolding during Formation Phase proves patterns before investing in generators. But manual processes don't scale. Automation must eventually eliminate repetitive human decisions.
+## Bounded Domains
 
-**Fail early, fail explicitly.**
-Contract validation at commit time prevents deployment failures. Finding schema violations in CI is cheaper than discovering them when deployments fail at 2am.
+**Secure data engineering is the reference workload.**
+The platform is primarily proving workloads that ingest, transform, persist, orchestrate, protect, and analyze data.
 
-## Why Developer Experience
+**Operational AI stays inside platform controls.**
+AI workloads and model-access patterns should inherit the same identity, policy, observability, and GitOps expectations as any other workload.
 
-**Container-based development.**
-Docker provides consistent environments across developer machines. "Works on my laptop" becomes "works in this container," which is reproducible and debuggable.
+**Depth matters more than breadth.**
+New work should strengthen the core capability areas rather than expand the platform surface for its own sake.
 
-**Minimal onboarding friction.**
-Five-minute onboarding (clone, `docker-compose up`, code) validates that platform abstractions work. If setup requires reading documentation or debugging environments, the tooling failed.
+## Formation Discipline
 
-**Development-production parity.**
-When development containers match production runtimes, you catch environment-specific bugs early. Container differences are explicit and testable.
+**Stabilize before scaling.**
+Formation is about proving the platform surface, not accumulating capabilities.
 
-## Why Documentation Discipline
+**Automate after patterns are clear.**
+Generators and automation should encode proven platform decisions, not hide unresolved design questions.
 
-**Authority, not duplication.**
-Multiple sources of truth inevitably drift. Platform-docs defines governance. The website explains philosophy and links to authority. Duplicating rules guarantees inconsistency.
-
-**Documentation is governance.**
-When documentation and implementation diverge, the code is wrong. Treating docs as authoritative forces alignment and prevents "the code is the documentation" decay.
-
-**Explicit over implicit.**
-Ambiguity permits misinterpretation. Repository taxonomy, lifecycle states, and contract semantics should be unambiguous and reviewable.
-
-## Why Multi-Tenancy
-
-**Isolation validates abstractions.**
-If the platform can't handle multiple isolated tenants safely, its security and resource boundaries are unproven. Multi-tenancy forces platform correctness.
-
-**Shared services, isolated state.**
-Tenants consuming shared GitOps, observability, and CI/CD proves the platform can provide leverage through reuse. But isolated state prevents cross-tenant interference.
-
-**Lifecycle independence.**
-Creating, updating, or destroying one tenant shouldn't affect others. Independence validates that boundaries work and resources are properly scoped.
-
-## Why Governance
-
-**Taxonomy prevents ambiguity.**
-Every repository belongs to exactly one category. Ambiguity about responsibility and authority creates architectural debt.
-
-**Cross-repo coordination.**
-Changes affecting multiple repositories require explicit analysis. Uncoordinated changes create cascading failures and integration problems.
-
-**Formation constraints protect quality.**
-Refusing revenue dependencies and customer commitments during Formation Phase prevents premature operational pressure from forcing architectural shortcuts.
-
-**Platform evolution over exceptions.**
-When tenant needs require contract violations, the platform should evolve to support them properly rather than creating one-off exceptions that accumulate into unmaintainable special cases.
-
----
-
-See [Architectural Doctrine (Tier 0)](https://github.com/zavestudios/platform-docs/blob/main/_platform/ARCHITECTURAL_DOCTRINE_TIER0.md) for detailed architectural constraints and [platform-docs](https://github.com/zavestudios/platform-docs) for authoritative governance specifications.
+**The system should stay explainable.**
+A platform that cannot be explained clearly will be difficult to operate, govern, and improve.

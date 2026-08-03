@@ -3,92 +3,66 @@ title: "Platform Services"
 weight: 30
 ---
 
-This page summarizes reusable platform capabilities. Canonical service boundaries, contract behavior, and generator semantics live in `platform-docs`.
+Platform services are the reusable capabilities that make ZaveStudios more than a collection of workload repositories.
 
----
+They define what the platform provides to workload owners: secure delivery, runtime state management, data services, observability and policy controls, and shared model access for operational AI.
 
-## Active Platform Services
+## Capability Areas
 
-### Platform Pipelines - Shared CI/CD Workflows
-**Repository:** [zavestudios/platform-pipelines](https://github.com/zavestudios/platform-pipelines)
+### Shared CI/CD and Image Builds
 
-Reusable GitHub Actions workflows for container builds, static site deployment, and related delivery automation. Tenant repositories are expected to consume these workflows through thin bindings rather than carrying full CI implementations.
+Workloads should not carry full custom delivery logic. They should consume shared workflows and base image patterns so build, validation, and security behavior stay consistent.
 
-**Capabilities:**
-- Container image builds with multi-platform support (linux/amd64, linux/arm64)
-- Semantic tagging and version management
-- Static site deployment (Hugo, Jekyll)
-- GitOps repository updates on successful builds
+**Supporting repositories:**
 
-**Tenant integration:** See the workload repos and `platform-pipelines` for current usage patterns. Canonical workflow ownership rules live in `platform-docs`.
+- [platform-pipelines](https://github.com/zavestudios/platform-pipelines) - shared GitHub Actions workflows for build, validation, and delivery behavior
+- [image-factory](https://github.com/zavestudios/image-factory) - base image and supply-chain primitives for workload runtimes
 
----
+### GitOps-Managed Runtime State
 
-### Image Factory - Base Container Images
-**Repository:** [zavestudios/image-factory](https://github.com/zavestudios/image-factory)
+The platform should represent desired runtime state through Git rather than through unmanaged manual changes. GitOps gives workload adoption a reviewable and reproducible path from declared intent to running system.
 
-Supply chain primitives providing hardened base images for tenant workloads. Reduces tenant Dockerfile complexity and ensures consistent security patching across all container workloads.
+**Supporting repository:**
 
-**Base images:**
-- Python runtime images (multiple versions)
-- Ruby runtime images
-- Node.js runtime images
-- Static asset serving images
+- [gitops](https://github.com/zavestudios/gitops) - desired runtime state and reconciliation surface
 
-**Security:** Automated vulnerability scanning, minimal attack surface, regular security updates.
+### Data Services and Tenant Isolation
 
----
+Secure data engineering needs more than a database connection. Workloads need governed persistence, isolation, orchestration, and access patterns that can be reused without rebuilding data infrastructure each time.
 
-### pg - PostgreSQL Multi-Tenant Provisioning
-**Repository:** [zavestudios/pg](https://github.com/zavestudios/pg)
+**Supporting repositories:**
 
-Database provisioning and management service providing the shared PostgreSQL capability used by workload repositories.
+- [pg](https://github.com/zavestudios/pg) - PostgreSQL data capability
+- [airflow](https://github.com/zavestudios/airflow) - shared data orchestration capability
 
-**Capabilities:**
-- Automated schema provisioning per tenant
-- Connection pooling via PgBouncer
-- Resource limits and query monitoring
-- Tenant-specific migration tooling
+### Observability, Policy, and Security Controls
 
-**Tenant integration:** Workload contracts can request persistence through the canonical contract surface defined in `platform-docs`.
+Workloads should inherit telemetry, policy, identity, and security expectations from the platform path. These controls are part of the baseline, not optional add-ons.
 
----
+**Capability examples:**
 
-## BigBang Platform Services
+- logs, metrics, and traces
+- identity and access boundaries
+- policy enforcement
+- runtime security posture
+- evidence that controls apply consistently
 
-Many core platform services are provided through the [Big Bang](https://github.com/zavestudios/bigbang) distribution, which delivers DoD-validated security and observability patterns.
+### Shared Model Access for Operational AI
 
-**GitOps Automation:**
-- **Flux** - Continuous deployment and GitOps reconciliation
-- **ArgoCD** - Application deployment and sync management
+Operational AI needs a shared model-access path so provider routing, model profiles, secrets, and future self-hosted inference do not become per-workload decisions.
 
-**Observability:**
-- **Prometheus** - Metrics collection and alerting
-- **Grafana** - Metrics visualization and dashboards
-- **Loki** - Log aggregation
-- **Tempo** - Distributed tracing
+**Supporting repository:**
 
-**Security:**
-- **Istio** - Service mesh and mTLS
-- **Kyverno** - Policy enforcement
-- **Twistlock** - Container security scanning
-
-**Additional Services:**
-- **Velero** - Backup and disaster recovery
-- **Keycloak** - Identity and access management
-
-BigBang services are consumed automatically by all tenants through platform infrastructure. Tenants receive observability, security, and GitOps capabilities without explicit configuration.
-
----
+- [llm-platform](https://github.com/zavestudios/llm-platform) - shared model-access capability
 
 ## Service Consumption Model
 
-Platform services are intended to be consumed through the workload contract and shared workflow bindings rather than through ad hoc tenant-specific integration. See the canonical contract and generator documents in `platform-docs` for the supported model.
+Platform services should be consumed through workload contracts, shared workflow bindings, GitOps state, or platform-owned configuration.
 
----
+The important test is predictability: workload owners should know which capabilities exist and how to adopt them without negotiating custom infrastructure each time.
 
-## Related Documentation
+## Related Sections
 
-- [Repository Directory](../documentation/repositories/) - Complete taxonomy of platform-service repositories
-- [Generator Model](https://github.com/zavestudios/platform-docs/blob/main/_platform/GENERATOR_MODEL.md) - Stage 4 Capability Generator specification
-- [Contract Schema](https://github.com/zavestudios/platform-docs/blob/main/_platform/CONTRACT_SCHEMA.md) - Contract fields driving service consumption
+- [Architecture](../architecture/overview/) - How capability areas fit into the control-plane model
+- [Tenant Applications](../applications/) - Reference workloads that consume platform services
+- [Proofs of Concept](../experiments/) - POCs for possible future capabilities
