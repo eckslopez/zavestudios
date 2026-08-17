@@ -28,7 +28,14 @@ This page is a compact map of the repository estate behind the platform.
 | [pg](https://github.com/zavestudios/pg) | PostgreSQL platform data capability |
 | [airflow](https://github.com/zavestudios/airflow) | Shared orchestration capability for data workloads |
 | [llm-platform](https://github.com/zavestudios/llm-platform) | Shared model-access capability |
+| [autonomous-agent](https://github.com/zavestudios/autonomous-agent) | Persistent autonomous assistant/orchestrator capability |
 | [zave-cli](https://github.com/zavestudios/zave-cli) | Workload bootstrap and scaffolding CLI |
+
+## Emerging Capabilities
+
+| Capability | Role |
+|------------|------|
+| `engineering-agent` | Operator-directed software-engineering agent capability; repository publication pending |
 
 ## Reference Workloads
 
@@ -37,7 +44,6 @@ This page is a compact map of the repository estate behind the platform.
 | [listings-ingest](https://github.com/zavestudios/listings-ingest) | Batch ingestion and ETL reference workload |
 | [panchito](https://github.com/zavestudios/panchito) | Service-style ETL and async processing workload |
 | [oracle](https://github.com/zavestudios/oracle) | Analytical and AI-assisted data workflow |
-| [mia](https://github.com/zavestudios/mia) | Operational AI assistant workload |
 | [rigoberta](https://github.com/zavestudios/rigoberta) | Supporting Rails workload example |
 | [thehouseguy](https://github.com/zavestudios/thehouseguy) | Supporting listing application example |
 

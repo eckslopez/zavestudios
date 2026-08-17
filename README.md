@@ -25,6 +25,11 @@ The platform work centers on three practice lanes:
 - [platform-pipelines](https://github.com/zavestudios/platform-pipelines) - shared CI/CD workflows
 - [pg](https://github.com/zavestudios/pg) - PostgreSQL platform capability
 - [llm-platform](https://github.com/zavestudios/llm-platform) - shared model-access capability
+- [autonomous-agent](https://github.com/zavestudios/autonomous-agent) - persistent autonomous-agent runtime capability
+
+## Emerging Capabilities
+
+- `engineering-agent` - operator-directed engineering-agent capability; repository publication pending
 
 ## Current Status
 
