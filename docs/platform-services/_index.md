@@ -55,6 +55,20 @@ Operational AI needs a shared model-access path so provider routing, model profi
 
 - [llm-platform](https://github.com/zavestudios/llm-platform) - shared model-access capability
 
+### Agent Runtime Capabilities
+
+Agentic work is split by operating model. Operator-directed engineering work belongs to `engineering-agent`; goal, schedule, event, and standing-instruction driven work belongs to `autonomous-agent`.
+
+Both capabilities should consume `llm-platform` for shared model access rather than owning provider routing policy directly.
+
+**Supporting repositories:**
+
+- [autonomous-agent](https://github.com/zavestudios/autonomous-agent) - persistent autonomous assistant/orchestrator capability
+
+**Emerging capability:**
+
+- `engineering-agent` - operator-directed software-engineering capability; repository publication pending
+
 ## Service Consumption Model
 
 Platform services should be consumed through workload contracts, shared workflow bindings, GitOps state, or platform-owned configuration.

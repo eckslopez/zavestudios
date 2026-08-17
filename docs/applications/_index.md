@@ -25,12 +25,6 @@ Tenant applications are reference workloads. Each one exists to prove a specific
 
 **Platform proof point:** analytical and AI-assisted workloads can inherit the DevSecOps baseline without requiring public ingress.
 
-### Mia - Operational AI Assistant Workload
-
-[Mia](https://github.com/zavestudios/mia) demonstrates operational AI inside platform boundaries. It consumes assistant and model-access patterns while remaining a governed workload rather than a new source of platform authority.
-
-**Platform proof point:** operational AI can use the same delivery, identity, observability, and runtime controls as other workloads.
-
 ## Supporting Examples
 
 ### Rigoberta - Rails Contract Example
@@ -47,6 +41,5 @@ Together, the roster tests several platform expectations:
 
 - every workload enters through the DevSecOps baseline
 - data workloads can be batch, service-style, analytical, or downstream consumer apps
-- operational AI fits inside platform controls
 - shared services should be adopted through platform paths, not one-off integrations
 - the platform should support multiple workload shapes without multiplying delivery mechanics
