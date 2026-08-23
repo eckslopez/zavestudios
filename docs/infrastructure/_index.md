@@ -1,6 +1,7 @@
 ---
 title: "Infrastructure"
 weight: 20
+hidden: true
 ---
 
 Infrastructure is the substrate the platform stands on: Kubernetes, GitOps, ingress, isolation controls, and the environment discipline required to run shared capabilities safely. The point of this layer is to give the platform a stable place to enforce runtime policy, tenant isolation, routing, and service integration while workload owners stay focused on application and data intent.
@@ -19,37 +20,29 @@ This is how the platform keeps delivery and runtime behavior predictable without
 
 ## Core Layers
 
-### Kubernetes Substrate
+**Kubernetes** is the execution layer for workloads and shared services. It provides the place where namespace isolation, policy enforcement, resource controls, ingress, and service connectivity can be applied consistently.
 
-Kubernetes is the execution layer for workloads and shared services. It provides the place where namespace isolation, policy enforcement, resource controls, ingress, and service connectivity can be applied consistently.
-
-**Supporting repository:** [kubernetes-platform-infrastructure](https://github.com/zavestudios/kubernetes-platform-infrastructure)
+Supporting repository: [kubernetes-platform-infrastructure](https://github.com/zavestudios/kubernetes-platform-infrastructure)
 
 This layer should remain platform-owned. Workloads should not carry cluster-shaping logic in their own repositories.
 
-### GitOps Desired State
+**GitOps** represents the runtime state the platform intends to exist. That includes workload registration, service integration, routing, and platform capability materialization. It is the reviewable bridge between validated intent and live runtime behavior.
 
-GitOps represents the runtime state the platform intends to exist. That includes workload registration, service integration, routing, and platform capability materialization. It is the reviewable bridge between validated intent and live runtime behavior.
-
-**Supporting repository:** [gitops](https://github.com/zavestudios/gitops)
+Supporting repository: [gitops](https://github.com/zavestudios/gitops)
 
 GitOps matters here because runtime change should be legible, reviewable, and reproducible rather than hidden in manual operations.
 
-### Environment Automation
+**Environment Automation** work still lives below the GitOps layer: provisioning, host preparation, and environment automation. That work exists to support the platform substrate, not to become an alternate path for application delivery.
 
-Some infrastructure work still lives below the GitOps layer: provisioning, host preparation, and environment automation. That work exists to support the platform substrate, not to become an alternate path for application delivery.
-
-**Supporting repository:** [ansible](https://github.com/zavestudios/ansible)
+Supporting repository: [ansible](https://github.com/zavestudios/ansible)
 
 ## Isolation Model
 
 Infrastructure is where isolation becomes real.
 
-**Namespace isolation:** workloads run in bounded namespaces with enforced access controls.
-
-**Network isolation:** communication boundaries are governed through platform-owned policy rather than ad hoc workload rules.
-
-**Data isolation:** workloads consume data services through approved access paths and tenant-aware controls. The data service itself is a platform capability; the isolation guarantee depends on the infrastructure layer enforcing the boundary consistently.
+- Namespace isolation: workloads run in bounded namespaces with enforced access controls
+- Network isolation: communication boundaries are governed through platform-owned policy rather than ad hoc workload rules
+- Data isolation: workloads consume data services through approved access paths and tenant-aware controls. The data service itself is a platform capability; the isolation guarantee depends on the infrastructure layer enforcing the boundary consistently
 
 ## Portability Constraint
 
@@ -72,6 +65,6 @@ Infrastructure is therefore not a separate concern from the platform story. It i
 
 ## Related Sections
 
-- [Architecture](../architecture/overview/) - Where infrastructure sits in the control model
+- [Architecture](../architecture/) - Where infrastructure sits in the control model
 - [Platform Services](../platform-services/) - Shared capabilities that depend on this substrate
-- [Documentation](../documentation/) - Deeper operating and governance material
+- [Operations](../operations/) - Critical path and operating model

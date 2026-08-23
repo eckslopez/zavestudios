@@ -1,6 +1,7 @@
 ---
 title: "Conceptual Overview"
 weight: 5
+hidden: true
 ---
 
 ZaveStudios is a platform built around a baseline path: workloads declare intent, and the platform supplies the secure delivery and runtime mechanics.
@@ -30,21 +31,13 @@ Secure data engineering, data pipelines, and operational AI are layered on top o
 
 ## Four-Plane Control Model
 
-### 1. Contract Plane
+**Contract plane** captures workload intent. It keeps the workload interface small enough for owners to understand while giving the platform a structured input for validation and automation.
 
-The contract plane captures workload intent. It keeps the workload interface small enough for owners to understand while giving the platform a structured input for validation and automation.
+**CI plane** validates workload intent, builds artifacts, and proposes runtime changes. CI is a proposal layer: it should not become an independent runtime authority.
 
-### 2. CI Plane
+**GitOps plane** owns desired runtime state. Deployment state, workload registration, routing, service integration, and environment configuration should be represented through Git-managed state.
 
-The CI plane validates workload intent, builds artifacts, and proposes runtime changes. CI is a proposal layer: it should not become an independent runtime authority.
-
-### 3. GitOps Plane
-
-The GitOps plane owns desired runtime state. Deployment state, workload registration, routing, service integration, and environment configuration should be represented through Git-managed state.
-
-### 4. Runtime Plane
-
-The runtime plane executes declared state. Kubernetes, data services, observability, policy, and security controls should reflect platform-managed configuration rather than unmanaged manual changes.
+**Runtime plane** executes declared state. Kubernetes, data services, observability, policy, and security controls should reflect platform-managed configuration rather than unmanaged manual changes.
 
 The intended flow is:
 
@@ -54,11 +47,9 @@ Workload intent -> CI validation/build -> GitOps desired state -> Runtime execut
 
 ## Capability Areas
 
-**DevSecOps** provides the operating substrate: CI/CD, GitOps, policy, identity, observability, and security controls.
-
-**Secure data engineering** provides the primary workload domain: ingestion, transformation, persistence, orchestration, tenant isolation, and analysis.
-
-**Operational AI** provides shared model access and AI-enabled workload patterns inside the same delivery, identity, observability, and runtime boundaries.
+- DevSecOps provides the operating substrate: CI/CD, GitOps, policy, identity, observability, and security controls
+- Secure data engineering provides the primary workload domain: ingestion, transformation, persistence, orchestration, tenant isolation, and analysis
+- Operational AI provides shared model access and AI-enabled workload patterns inside the same delivery, identity, observability, and runtime boundaries
 
 ## Adoption Model
 
@@ -78,7 +69,7 @@ ZaveStudios is still in Formation Phase. The architecture is being simplified an
 
 ## Related Sections
 
-- [Philosophy](../philosophy/) - Why the platform is shaped this way
-- [Design Principles](../philosophy/principles/) - Decision logic behind the architecture
-- [Platform Services](../platform-services/) - Shared capabilities consumed by workloads
-- [Tenant Applications](../applications/) - Reference workloads that exercise the platform path
+- [Formation Phase](../../formation-phase/) - Current platform maturity and stabilization work
+- [Design Principles](../../philosophy/principles/) - Decision logic behind the architecture
+- [Platform Services](../../platform-services/) - Shared capabilities consumed by workloads
+- [Workloads](../../workloads/) - Reference workloads that exercise the platform path

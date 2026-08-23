@@ -1,6 +1,7 @@
 ---
 title: "Proofs of Concept"
 weight: 50
+hidden: true
 ---
 
 POCs test whether a pattern is worth adding to the platform path.
@@ -19,43 +20,28 @@ A strong POC answers practical platform questions:
 
 ## Current Research Areas
 
-### Data Capability Patterns
+**Data capability patterns** test workload data isolation, connection management, broker/cache dependencies, orchestration, and migration patterns.
 
-POCs in this area test workload data isolation, connection management, broker/cache dependencies, orchestration, and migration patterns.
+Platform question: What data-plane capabilities should be platform-owned so data workloads do not rebuild them individually?
 
-**Platform question:** What data-plane capabilities should be platform-owned so data workloads do not rebuild them individually?
+**Operational AI patterns** test shared model access, assistant workflows, and controlled interaction between AI systems and platform information.
 
-### Operational AI Patterns
+Platform question: How can AI become useful operationally without bypassing identity, policy, observability, or GitOps boundaries?
 
-POCs in this area test shared model access, assistant workflows, and controlled interaction between AI systems and platform information.
+**Adoption automation** tests repository scaffolding, workflow binding, GitOps generation, and capability attachment.
 
-**Platform question:** How can AI become useful operationally without bypassing identity, policy, observability, or GitOps boundaries?
+Platform question: Which repeated adoption steps are stable enough to automate?
 
-### Adoption Automation
+**Security and observability patterns** test how workloads inherit controls and how the platform can produce evidence that those controls apply consistently.
 
-POCs in this area test repository scaffolding, workflow binding, GitOps generation, and capability attachment.
-
-**Platform question:** Which repeated adoption steps are stable enough to automate?
-
-### Security and Observability Patterns
-
-POCs in this area test how workloads inherit controls and how the platform can produce evidence that those controls apply consistently.
-
-**Platform question:** How does the platform prove that the secure baseline is actually present?
+Platform question: How does the platform prove that the secure baseline is actually present?
 
 ## Possible Outcomes
 
-**Promote to platform capability.**
-The pattern becomes reusable platform behavior.
-
-**Promote to reference workload.**
-The pattern is best demonstrated through a workload that exercises the platform path.
-
-**Keep as research.**
-The POC remains useful as design evidence, but is not ready to shape the platform.
-
-**Set aside.**
-The pattern does not strengthen the platform path enough to justify the added surface area.
+- Promote to platform capability: the pattern becomes reusable platform behavior
+- Promote to reference workload: the pattern is best demonstrated through a workload that exercises the platform path
+- Keep as research: the POC remains useful as design evidence, but is not ready to shape the platform
+- Set aside: the pattern does not strengthen the platform path enough to justify the added surface area
 
 ## Formation Role
 

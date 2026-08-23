@@ -40,3 +40,58 @@ a#logo-title,
 #R-logo .logo-image {
     display: inline-block;
 }
+
+/* Use color to reinforce hierarchy while keeping the reading surface quiet. */
+:root[data-r-theme-variant="blue"] {
+    --MAIN-BG-color: #ffffff;
+    --MAIN-TEXT-color: #263238;
+    --MAIN-TITLES-TEXT-color: #176b6f;
+    --MAIN-TITLES-H1-TEXT-color: #17324d;
+    --MAIN-LINK-color: #2166a5;
+    --MAIN-LINK-HOVER-color: #174a78;
+    --MENU-HEADER-BG-color: #176b6f;
+    --MENU-HEADER-BORDER-color: #23858a;
+    --MENU-SEARCH-BG-color: #12585c;
+    --MENU-SEARCH-BORDER-color: #23858a;
+    --MENU-SECTIONS-BG-color: #263238;
+    --MENU-SECTIONS-ACTIVE-BG-color: #1f292e;
+    --MENU-SECTIONS-LINK-color: #d6dde1;
+    --MENU-SECTIONS-LINK-HOVER-color: #ffffff;
+}
+
+#R-body #R-body-inner h2 {
+    color: #176b6f;
+}
+
+#R-body #R-body-inner h3 {
+    color: #365b73;
+}
+
+#R-body #R-body-inner p,
+#R-body #R-body-inner li {
+    color: #263238;
+    overflow-wrap: anywhere;
+}
+
+#R-body #R-body-inner h1,
+#R-body #R-body-inner h2,
+#R-body #R-body-inner h3 {
+    overflow-wrap: anywhere;
+}
+
+#R-header-wrapper {
+    background-color: #176b6f;
+}
+
+#R-header-wrapper .searchbox {
+    background-color: #12585c;
+    border-color: #23858a;
+}
+
+#R-homelinks {
+    background-color: #23858a;
+}
+
+#R-homelinks .R-menu-divider {
+    display: none;
+}

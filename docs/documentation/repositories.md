@@ -1,6 +1,7 @@
 ---
 title: "Repository Directory"
 weight: 10
+hidden: true
 ---
 
 This page is a compact map of the repository estate behind the platform.
@@ -29,13 +30,8 @@ This page is a compact map of the repository estate behind the platform.
 | [airflow](https://github.com/zavestudios/airflow) | Shared orchestration capability for data workloads |
 | [llm-platform](https://github.com/zavestudios/llm-platform) | Shared model-access capability |
 | [autonomous-agent](https://github.com/zavestudios/autonomous-agent) | Persistent autonomous assistant/orchestrator capability |
+| [engineering-agent](https://github.com/zavestudios/engineering-agent) | Operator-directed software-engineering agent capability |
 | [zave-cli](https://github.com/zavestudios/zave-cli) | Workload bootstrap and scaffolding CLI |
-
-## Emerging Capabilities
-
-| Capability | Role |
-|------------|------|
-| `engineering-agent` | Operator-directed software-engineering agent capability; repository publication pending |
 
 ## Reference Workloads
 
