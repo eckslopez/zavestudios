@@ -2,65 +2,32 @@
 title: "ZaveStudios"
 ---
 
-ZaveStudios is my internal developer platform sandbox: an opinionated platform architecture designed to make infrastructure predictable, composable, and easier to operate through bounded declarative contracts.
+ZaveStudios is a working internal developer platform for contract-driven workload delivery, shared platform services, and governed runtime operations.
 
-This site is the public narrative and working map for that platform. It explains the intent, tradeoffs, and current shape, while demonstrating the architecture, governance, and operating discipline required to run a platform.
+This site explains the platform through the same sections shown in the navigation. Start with the architecture, follow the tenant path into platform services and operations, then see how workloads exercise the platform while it moves through Formation Phase.
 
----
+## Architecture
 
-## Why This Exists
+[Architecture](architecture/) begins with the principles behind an effective internal developer platform, then explains how workload contracts, shared workflows, GitOps, runtime state, and platform services apply them. Tenants declare intent, and the platform owns the repeatable delivery and infrastructure mechanics.
 
-I created ZaveStudios to maintain a hands-on platform sandbox independent of any employer environment. It gives me a place to build, operate, break, document, and refine real systems so I can keep pace with DevSecOps, secure data engineering, data pipelines, and operational AI.
+## Tenant Guide
 
-The discipline of running a platform requires strong organizing principles. This platform stays understandable by organizing the work into three practice lanes:
+[Tenant Guide](tenant-guide/) describes the supported path for workload owners. Tenants define application and data behavior, express workload needs through a bounded contract, and consume platform capabilities through governed interfaces.
 
-**DevSecOps.** Secure delivery, policy, identity, observability, and operational discipline.
+## Platform Services
 
-**Secure data engineering.** Data ingestion, transformation, persistence, orchestration, and isolation.
+[Platform Services](platform-services/) describes the reusable capabilities available to tenants: shared delivery and image builds, GitOps-managed runtime state, data services and orchestration, observability and policy controls, shared model access, and agent runtimes.
 
-**Operational AI.** Shared model access, AI-enabled workloads, and agent-assisted platform operations.
+These services carry the platform's cross-cutting practices: DevSecOps establishes the governed baseline, secure data engineering adds reusable data capabilities, and operational AI adds model access and agent-assisted workflows inside the same controls.
 
-**Documentation as a first-class platform element.** The operating model, contract shape, lifecycle rules, and validation expectations are part of the platform itself, not an afterthought.
+## Operations
 
----
+[Operations](operations/) follows the critical path from declared intent to a running workload: onboarding, contract validation, shared workflow binding, GitOps registration, platform service attachment, and runtime health and drift.
 
-## How It Works
+## Workloads
 
-At a high level, the platform has two jobs: define a clear capability set and make adoption predictable for workload owners. Workload repositories declare intent through a small contract surface, and the platform translates that intent into:
+[Workloads](workloads/) shows the platform in use. Tenant and reference workloads exercise web, batch, service-style data, analytical, and AI-assisted patterns without creating separate delivery models for each domain.
 
-- shared CI/CD and image build behavior
-- GitOps-managed runtime state
-- data services and tenant isolation
-- observability, policy, and security controls
-- shared model access for operational AI
+## Formation Phase
 
-These capability areas also define the platform boundary: work that does not strengthen one of them should be revised, deferred, or left outside the platform narrative.
-
-The contract keeps workload intent explicit while the platform owns the mechanics.
-
----
-
-
-## What You'll Find Here
-
-The left navigation expands the platform definition into a small set of readable sections:
-
-**[Philosophy](philosophy/)** - why the platform exists, how scope is controlled, and what principles guide platform decisions
-
-**[Architecture](architecture/)** - how contracts, CI, GitOps, runtime state, and capability lanes fit together
-
-**[Infrastructure](infrastructure/)** - the Kubernetes and GitOps substrate that makes the platform concrete
-
-**[Platform Services](platform-services/)** - the shared CI/CD, image, data, observability, security, and model-access capabilities
-
-**[Tenant Applications](applications/)** - reference workloads showing how secure data engineering, data pipelines, and operational AI consume the platform
-
-**[Proofs of Concept](experiments/)** - POCs used to test whether patterns should become part of the platform path
-
-**[Documentation](documentation/)** - source references and deeper operating documents when a reader needs the underlying detail
-
----
-
-## Current Status
-
-The platform is in **Formation Phase**: stabilizing the contract surface, narrowing scope, and keeping the system small enough for one operator to understand and improve.
+[Formation Phase](formation-phase/) explains the platform's current maturity. The immediate work is to stabilize the contract surface, narrow the supported path, strengthen GitOps authority, and make tenant onboarding increasingly predictable.

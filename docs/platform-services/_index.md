@@ -3,80 +3,55 @@ title: "Platform Services"
 weight: 30
 ---
 
-Platform services are the reusable capabilities that make ZaveStudios more than a collection of workload repositories.
+Platform services are reusable capabilities available to tenants through governed interfaces.
 
-They define what the platform provides to workload owners: secure delivery, runtime state management, data services, observability and policy controls, and shared model access for operational AI.
+They provide secure delivery, runtime state management, data services, observability and policy controls, shared model access, and agent runtimes.
 
-## Capability Areas
+## Shared Delivery and Image Builds
 
-### Shared CI/CD and Image Builds
+Shared delivery validates workload contracts, builds artifacts, and applies consistent security and quality controls. Shared workflows and base images give workloads a predictable route from source to deployable artifact.
 
-Workloads should not carry full custom delivery logic. They should consume shared workflows and base image patterns so build, validation, and security behavior stay consistent.
+## GitOps Runtime Management
 
-**Supporting repositories:**
+GitOps represents desired runtime state and reconciles it into the platform environment. Workload registration, routing, configuration, and service integration remain reviewable and reproducible from declared intent through runtime.
 
-- [platform-pipelines](https://github.com/zavestudios/platform-pipelines) - shared GitHub Actions workflows for build, validation, and delivery behavior
-- [image-factory](https://github.com/zavestudios/image-factory) - base image and supply-chain primitives for workload runtimes
+## Data Services and Orchestration
 
-### GitOps-Managed Runtime State
+Data services provide governed persistence, isolation, orchestration, and access patterns. Tenants attach these capabilities through platform interfaces and receive consistent provisioning, credentials, policy, and lifecycle behavior.
 
-The platform should represent desired runtime state through Git rather than through unmanaged manual changes. GitOps gives workload adoption a reviewable and reproducible path from declared intent to running system.
+## Observability, Policy, and Security
 
-**Supporting repository:**
+Baseline controls provide logs, metrics, traces, identity boundaries, policy enforcement, and runtime security signals. These controls travel with the supported workload path and give tenants and operators a consistent view of health and compliance.
 
-- [gitops](https://github.com/zavestudios/gitops) - desired runtime state and reconciliation surface
+## Shared Model Access
 
-### Data Services and Tenant Isolation
+Shared model access centralizes provider connectivity, model profiles, credentials, routing policy, quotas, and tracing. AI-enabled workloads and agent services consume models through one governed platform interface.
 
-Secure data engineering needs more than a database connection. Workloads need governed persistence, isolation, orchestration, and access patterns that can be reused without rebuilding data infrastructure each time.
+## Agent Runtime Services
 
-**Supporting repositories:**
+Agent runtime services support two operating models. [Engineering Agent](https://github.com/zavestudios/engineering-agent) provides operator-directed software engineering. [Autonomous Agent](https://github.com/zavestudios/autonomous-agent) provides persistent, goal-directed, scheduled, and event-directed work.
 
-- [pg](https://github.com/zavestudios/pg) - PostgreSQL data capability
-- [airflow](https://github.com/zavestudios/airflow) - shared data orchestration capability
+Both services use shared model access and participate in the same platform-governed delivery and runtime paths as other shared capabilities.
 
-### Observability, Policy, and Security Controls
+## Consuming a Service
 
-Workloads should inherit telemetry, policy, identity, and security expectations from the platform path. These controls are part of the baseline, not optional add-ons.
+Tenants consume platform services through workload contracts, shared workflow bindings, GitOps state, and platform-owned configuration. Each interface keeps the request focused on the capability while the platform supplies provisioning, integration, governance, and lifecycle mechanics.
 
-**Capability examples:**
+## Implementation References
 
-- logs, metrics, and traces
-- identity and access boundaries
-- policy enforcement
-- runtime security posture
-- evidence that controls apply consistently
+The source repositories implement the services described above:
 
-### Shared Model Access for Operational AI
-
-Operational AI needs a shared model-access path so provider routing, model profiles, secrets, and future self-hosted inference do not become per-workload decisions.
-
-**Supporting repository:**
-
-- [llm-platform](https://github.com/zavestudios/llm-platform) - shared model-access capability
-
-### Agent Runtime Capabilities
-
-Agentic work is split by operating model. Operator-directed engineering work belongs to `engineering-agent`; goal, schedule, event, and standing-instruction driven work belongs to `autonomous-agent`.
-
-Both capabilities should consume `llm-platform` for shared model access rather than owning provider routing policy directly.
-
-**Supporting repositories:**
-
-- [autonomous-agent](https://github.com/zavestudios/autonomous-agent) - persistent autonomous assistant/orchestrator capability
-
-**Emerging capability:**
-
-- `engineering-agent` - operator-directed software-engineering capability; repository publication pending
-
-## Service Consumption Model
-
-Platform services should be consumed through workload contracts, shared workflow bindings, GitOps state, or platform-owned configuration.
-
-The important test is predictability: workload owners should know which capabilities exist and how to adopt them without negotiating custom infrastructure each time.
+- [platform-pipelines](https://github.com/zavestudios/platform-pipelines) - shared delivery workflows
+- [image-factory](https://github.com/zavestudios/image-factory) - base images and supply-chain primitives
+- [gitops](https://github.com/zavestudios/gitops) - desired runtime state and reconciliation
+- [pg](https://github.com/zavestudios/pg) - PostgreSQL data service
+- [airflow](https://github.com/zavestudios/airflow) - data orchestration service
+- [llm-platform](https://github.com/zavestudios/llm-platform) - shared model access
+- [engineering-agent](https://github.com/zavestudios/engineering-agent) - operator-directed engineering service
+- [autonomous-agent](https://github.com/zavestudios/autonomous-agent) - autonomous agent service
 
 ## Related Sections
 
-- [Architecture](../architecture/overview/) - How capability areas fit into the control-plane model
-- [Tenant Applications](../applications/) - Reference workloads that consume platform services
-- [Proofs of Concept](../experiments/) - POCs for possible future capabilities
+- [Architecture](../architecture/) - How capability areas fit into the control-plane model
+- [Tenant Guide](../tenant-guide/) - How tenants consume platform capabilities
+- [Workloads](../workloads/) - Reference workloads that consume platform services
