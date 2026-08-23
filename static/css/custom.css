@@ -91,3 +91,7 @@ a#logo-title,
 #R-homelinks {
     background-color: #23858a;
 }
+
+#R-homelinks .R-menu-divider {
+    display: none;
+}
