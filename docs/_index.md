@@ -2,9 +2,9 @@
 title: "ZaveStudios"
 ---
 
-ZaveStudios is a working internal developer platform for contract-driven workload delivery, shared platform services, and governed runtime operations.
+ZaveStudios is my internal developer platform sandbox: an opinionated platform architecture designed to make infrastructure predictable, composable, and easier to operate through bounded declarative contracts.
 
-This site explains the platform through the same sections shown in the navigation. Start with the architecture, follow the tenant path into platform services and operations, then see how workloads exercise the platform while it moves through Formation Phase.
+This site is the public narrative and working map for that platform. It explains the intent, tradeoffs, and current shape, while demonstrating the architecture, governance, and operating discipline required to run a platform.
 
 ## Architecture
 
