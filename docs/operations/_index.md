@@ -1,6 +1,6 @@
 ---
-title: "Operations"
-weight: 40
+title: "Operations Guide"
+weight: 20
 ---
 
 Operations describes the platform's critical path from declared intent to running workload.

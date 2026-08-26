@@ -1,6 +1,6 @@
 ---
 title: "Workloads"
-weight: 50
+weight: 40
 aliases:
   - /applications/
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Tenant Guide"
-weight: 20
+weight: 10
 ---
 
 Tenants consume the platform by declaring workload intent and using platform-owned paths for delivery, runtime, governance, and shared capabilities.

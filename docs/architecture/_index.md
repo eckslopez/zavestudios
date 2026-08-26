@@ -1,6 +1,6 @@
 ---
 title: "Architecture"
-weight: 10
+weight: 30
 ---
 
 ZaveStudios is built around a baseline path: workloads declare intent, and the platform supplies the secure delivery and runtime mechanics.

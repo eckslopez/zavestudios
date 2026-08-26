@@ -1,6 +1,7 @@
 ---
 title: "Platform Services"
 weight: 30
+hidden: true
 ---
 
 Platform services are reusable capabilities available to tenants through governed interfaces.
