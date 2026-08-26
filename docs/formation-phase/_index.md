@@ -1,6 +1,6 @@
 ---
 title: "Formation Phase"
-weight: 60
+weight: 50
 aliases:
   - /philosophy/formation-phase/
 ---
