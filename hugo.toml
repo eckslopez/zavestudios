@@ -2,8 +2,6 @@ baseURL = "https://zavestudios.com/"
 languageCode = "en-us"
 title = " "
 contentDir = "docs"
-theme = "hugo-theme-relearn"
-
 [params]
   themeVariant = "blue"
   disableTitleSeparator = true
