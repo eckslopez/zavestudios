@@ -1,23 +1,12 @@
 services:
   hugo:
-    image: hugomods/hugo:exts
-    command: >-
-      sh -c "
-      if [ ! -d themes/hugo-theme-relearn ]; then
-        git clone --depth 1 https://github.com/McShelby/hugo-theme-relearn themes/hugo-theme-relearn;
-      fi;
-      hugo server -D --bind 0.0.0.0 --baseURL http://localhost:1313/
-      "
+    image: hugomods/hugo:0.165.0@sha256:cf1a2009a1edf807d0880af344c4dd13b40b308c340501128fb54e5aab17b009
+    command: server -D --bind 0.0.0.0 --baseURL http://localhost:1313/
     ports:
       - "1313:1313"
     volumes:
       - .:/src
-      - /Users/xavierlopez/Dev:/work
-      - hugo_themes:/src/themes
     working_dir: /src
     environment:
       HUGO_ENVIRONMENT: development
       HUGO_ENV: development
-
-volumes:
-  hugo_themes:

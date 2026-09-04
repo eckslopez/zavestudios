@@ -5,10 +5,6 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-  schedule:
-    - cron: "0 12 * * *"
-  repository_dispatch:
-    types: [module_update]
   workflow_dispatch:
 
 permissions:
@@ -21,10 +17,7 @@ concurrency:
 jobs:
   build:
     if: github.ref != 'refs/heads/main' || github.event_name == 'pull_request'
-    uses: zavestudios/platform-pipelines/.github/workflows/hugo-build.yml@c0aa80bb405fa24ede5ebcf1c40b0be90328386c
-    with:
-      goprivate: github.com/zavestudios/*,gitlab.com/platformystical/*
-      gonosumdb: github.com/zavestudios/*,gitlab.com/platformystical/*
+    uses: zavestudios/platform-pipelines/.github/workflows/hugo-build.yml@c0159f042136961310d5dce6ebe780805f7e9781
 
   deploy:
     name: Deploy Hugo Site
@@ -33,11 +26,8 @@ jobs:
       contents: read
       pages: write
       id-token: write
-    uses: zavestudios/platform-pipelines/.github/workflows/hugo-deploy.yml@c0aa80bb405fa24ede5ebcf1c40b0be90328386c
-    with:
-      goprivate: github.com/zavestudios/*,gitlab.com/platformystical/*
-      gonosumdb: github.com/zavestudios/*,gitlab.com/platformystical/*
+    uses: zavestudios/platform-pipelines/.github/workflows/hugo-deploy.yml@c0159f042136961310d5dce6ebe780805f7e9781
 
   link-check:
     name: Check Markdown Links
-    uses: zavestudios/platform-pipelines/.github/workflows/link-check.yml@c0aa80bb405fa24ede5ebcf1c40b0be90328386c
+    uses: zavestudios/platform-pipelines/.github/workflows/link-check.yml@c0159f042136961310d5dce6ebe780805f7e9781
