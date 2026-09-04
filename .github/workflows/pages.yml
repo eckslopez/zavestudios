@@ -30,4 +30,13 @@ jobs:
 
   link-check:
     name: Check Markdown Links
-    uses: zavestudios/platform-pipelines/.github/workflows/link-check.yml@c0159f042136961310d5dce6ebe780805f7e9781
+    uses: zavestudios/platform-pipelines/.github/workflows/link-check.yml@23f7b203cfb67d9b4dd7861e655570854a9bb45e
+    with:
+      # Check URLs only. Internal links here are Hugo routes
+      # (../../formation-phase/ -> docs/formation-phase/_index.md rendered at
+      # /formation-phase/), which are addresses that exist only after the
+      # build. lychee resolves them as filesystem paths and reports false
+      # positives. Hugo does not validate raw markdown links either, so
+      # internal links are currently unchecked by design — converting them to
+      # relref shortcodes would fix that and is tracked separately.
+      lychee_args: "--verbose --no-progress --scheme https --scheme http"
