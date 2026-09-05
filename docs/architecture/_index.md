@@ -7,51 +7,46 @@ ZaveStudios is built around a baseline path: workloads declare intent, and the p
 
 The architecture brings DevSecOps, secure data engineering, data pipelines, and operational AI into one governed shape. Shared platform services provide delivery, data-service integration, observability, policy, and model access through consistent interfaces.
 
-## The Platform at a Glance
+## System Context
 
-Four layers, from the metal up. Each is opened in its own view.
+Who touches the platform, and what it depends on.
 
 ```mermaid
-flowchart TB
-  dev["<b>Tenant Developer</b><br/><i>[Person]</i>"]
-  op["<b>Platform Operator</b><br/><i>[Person]</i>"]
-  agent["<b>Coding Agents</b><br/><i>[Person]</i>"]
+C4Context
+  title System Context diagram for the ZaveStudios Platform
 
-  subgraph zave["ZaveStudios Platform &nbsp; [Software System]"]
-    t4["<b>Tenant Workloads</b>"]
-    t3["<b>Platform Services</b>"]
-    t2["<b>2 · Inside the Cluster</b><br/>k3s control plane, Flux reconciliation, admission policy"]
-    t1["<b>Infrastructure and Ingress</b><br/>libvirt VMs, cluster nodes, network, Istio gateway"]
-    t4 --- t3
-    t3 --- t2
-    t2 --- t1
-  end
+  Person(dev, "Tenant Developer", "Declares workload intent. Owns application and data behaviour.")
+  Person(op, "Platform Operator", "Reviews and merges change. Does not mutate the cluster directly.")
 
-  gh["<b>GitHub</b><br/><i>[External]</i><br/>repos, Actions, images"]
-  cf["<b>Cloudflare</b><br/><i>[External]</i><br/>DNS, tunnel, edge TLS"]
+  System_Ext(agent, "Coding Agents", "Automated contributors. Propose change as pull requests, never applied directly.")
 
-  dev   -- "declares intent" --> t4
-  op    -- "merges change" --> gh
-  agent -- "proposes change" --> gh
-  gh -- "supplies desired state to" --> t2
-  cf -- "routes traffic to" --> t1
+  System(platform, "ZaveStudios Platform", "On-prem k3s. Supplies secure delivery, policy, observability, and runtime mechanics to tenant workloads.")
 
-  classDef person   fill:#ffffff,stroke:#052e56,color:#fff
-  classDef layer    fill:#ffffff,stroke:#0b4884,color:#fff
-  classDef external fill:#ffffff,stroke:#6b6b6b,color:#fff
-  class dev,op,agent person
-  class t1,t2,t3,t4 layer
-  class gh,cf external
-  style zave fill:#f4f8fc,stroke:#1168bd,stroke-width:2px,color:#0b4884
+  System_Ext(gh, "GitHub", "Repositories, Actions, and container images. The system of record for desired state.")
+  System_Ext(cf, "Cloudflare", "DNS, tunnel, and edge TLS termination. External traffic enters here.")
+
+  Rel(dev, platform, "Declares intent to")
+  Rel(op, gh, "Merges change into")
+  Rel(agent, gh, "Proposes change to")
+  Rel(gh, platform, "Supplies desired state to", "Flux, pull-based")
+  Rel(cf, platform, "Routes external traffic to", "HTTPS")
+
+  UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
 Nobody changes the platform by touching it. Intent is declared, change is
-merged, and the cluster pulls what Git says should be true.
+merged, and the cluster pulls what Git says should be true. That is why the
+operator and the coding agents point at GitHub rather than at the platform —
+only the tenant developer addresses it directly.
 
-Notation follows the [C4 model](https://c4model.com/): people, the system in
-scope, and external systems, with each relationship labelled by what it does.
+Notation follows the [C4 model](https://c4model.com/). This is a Level 1
+context diagram, so the platform is deliberately a single box: it shows who
+uses it and what it depends on, and nothing about how it is built. The views
+below open it up.
 
 ## The Four Views
+
+Four layers, from the metal up. Each is opened in its own page.
 
 1. **Substrate and Ingress** — VMs, cluster nodes, network, and how external
    traffic reaches a workload
